@@ -3,6 +3,7 @@ package main
 import (
 	_ "embed"
 	"log"
+	"os"
 	"wloc/lib"
 
 	"github.com/a-h/templ"
@@ -42,7 +43,6 @@ func main() {
 		})
 		e.GET("/main.js", func(c echo.Context) error {
 			c.Response().Header().Set("content-type", "application/javascript")
-			// Set status code
 			c.Response().WriteHeader(200)
 			_, err := c.Response().Write(mainJs)
 			return err
@@ -72,18 +72,12 @@ func main() {
 				"points":  points[1:],
 			})
 		})
-		import (
-	"os"
-	// остальные импорты...
-)
 
-// ...
-
-port := os.Getenv("PORT")
-if port == "" {
-	port = "1974"
-}
-e.Logger.Fatal(e.Start("0.0.0.0:" + port))
+		port := os.Getenv("PORT")
+		if port == "" {
+			port = "1974"
+		}
+		e.Logger.Fatal(e.Start("0.0.0.0:" + port))
 		return nil
 	})
 	if err := cli.Run(); err != nil {
