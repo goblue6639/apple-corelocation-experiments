@@ -72,7 +72,18 @@ func main() {
 				"points":  points[1:],
 			})
 		})
-		e.Logger.Fatal(e.Start("127.0.0.1:1974"))
+		import (
+	"os"
+	// остальные импорты...
+)
+
+// ...
+
+port := os.Getenv("PORT")
+if port == "" {
+	port = "1974"
+}
+e.Logger.Fatal(e.Start("0.0.0.0:" + port))
 		return nil
 	})
 	if err := cli.Run(); err != nil {
